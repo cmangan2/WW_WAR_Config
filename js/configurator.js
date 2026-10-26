@@ -118,12 +118,12 @@ $("quoteForm").addEventListener("submit",e=>{
   const body=quoteText(f);
   location.href=`mailto:${SHOP.quoteEmail}?subject=${encodeURIComponent("AR build quote request — "+f.get("name"))}&body=${encodeURIComponent(body)}`;
   $("msg").textContent = SHOP.quoteEmail ? "Your email app should open with the build filled in — just hit send." :
-    `Your email app should open with the build filled in. Or call us at ${SHOP.phone}.`;
+    "Your email app should open with the build filled in — add the shop's address and hit send.";
 });
 $("copyBtn").onclick=()=>copy(quoteText(null),"Build summary copied.");
 $("linkBtn").onclick=()=>copy(`${location.href.split("#")[0]}#${hashOf(build)}`,"Link copied — anyone with it sees this exact build.");
 
-$("shopLine").textContent=`${SHOP.name} · custom AR builds · ${SHOP.phone}`;
+$("shopLine").textContent=`${SHOP.name} · custom AR builds`;
 $("sampleNote").textContent=SHOP.samplePrices?"Sample pricing for demonstration — final price confirmed with your quote.":"Final price confirmed with your quote.";
 $("barName").textContent=BASE.name;
 function startConfigurator(draw){

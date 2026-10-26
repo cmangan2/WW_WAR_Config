@@ -3,19 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AR Build Configurator</title>
+<title>AR Build Configurator 3D</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <header>
   <h1>Build your AR</h1>
-  <div class="shop"><span id="shopLine"></span> · <a id="viewSwitch" data-page="3d.html" href="3d.html">Switch to 3D view</a></div>
+  <div class="shop"><span id="shopLine"></span> · <a id="viewSwitch" data-page="2d.html" href="2d.html">Switch to 2D view</a></div>
 </header>
 
 <main>
   <section class="left">
     <div class="panel">
-      <div class="stage"><svg id="rifle" viewBox="20 30 990 270" role="img" aria-label="Side view of your build"></svg></div>
+      <div class="stage stage3d"><canvas id="rifle3d" aria-label="3D view of your build — drag to rotate, scroll or pinch to zoom"></canvas>
+        <div class="views"><button type="button" data-view="right">Right</button><button type="button" data-view="left">Left</button><button type="button" data-view="quarter">3/4</button><button type="button" data-view="top">Top</button></div>
+        <div class="hint">Drag to rotate · scroll to zoom</div></div>
       <div class="stage-foot">
         <span id="oal"></span>
         <span class="meter">Top rail used <span class="bar"><i id="railBar"></i></span> <span id="railTxt"></span></span>
@@ -59,8 +61,13 @@
 <div class="bar-total"><div><span id="barName">Basic M4 carbine</span><strong id="barTotal"></strong></div></div>
 
 <script src="js/catalog.js"></script>
-<script src="js/draw2d.js"></script>
 <script src="js/configurator.js"></script>
-<script>startConfigurator(b=>{ document.getElementById("rifle").innerHTML=drawRifle(b); });</script>
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.min.js" } }</script>
+<script type="module">
+  import { RifleView } from "./js/model3d.js";
+  const view = new RifleView(document.getElementById("rifle3d"));
+  document.querySelector(".views").addEventListener("click", e => { const v = e.target.dataset.view; if (v) view.setView(v); });
+  startConfigurator(b => view.update(b));
+</script>
 </body>
 </html>

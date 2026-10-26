@@ -4,8 +4,8 @@ A single-page configurator that lets customers build an AR from a basic M4-style
 
 Two views share the same parts list, fitment rules and quote form:
 
-- `index.html` — 2D side-view drawing. Opens straight from disk.
-- `3d.html` — 3D model you can rotate and zoom, built from simple shapes with [three.js](https://threejs.org) (vendored in `vendor/`, MIT licence). Browsers only load it from a web server, not from a file on disk: use GitHub Pages, or run `python3 -m http.server` in this folder and open http://localhost:8000/3d.html.
+- `index.html` — the default page: a 3D model you can rotate and zoom, built from simple shapes with [three.js](https://threejs.org) (vendored in `vendor/`, MIT licence). Browsers only load it from a web server, not from a file on disk: use GitHub Pages, or run `python3 -m http.server` in this folder and open http://localhost:8000.
+- `2d.html` — 2D side-view drawing. Opens straight from disk.
 
 There's no build step. Each page links to the other and carries the current build across.
 
@@ -20,7 +20,7 @@ There's no build step. Each page links to the other and carries the current buil
 
 Shop settings, parts and rules are in `js/catalog.js`:
 
-- `SHOP` — shop name, phone, the email that receives quote requests (`quoteEmail`), and `samplePrices` (set to `false` once prices are real).
+- `SHOP` — shop name, the email that receives quote requests (`quoteEmail`), and `samplePrices` (set to `false` once prices are real).
 - `BASE` — the starting rifle and its price.
 - `CATEGORIES` — every part option and what it adds to the price. **All current prices are placeholders.**
 - `errors()`, `warnings()` and `autoLines()` — the fitment rules, warnings and automatically added parts.

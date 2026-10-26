@@ -3,7 +3,6 @@
    ===================================================================== */
 const SHOP = {
   name: "Wicked Weaponry",
-  phone: "603-232-0621",
   quoteEmail: "",          // address that receives quote requests, e.g. "builds@yourshop.com"
   samplePrices: true       // set to false once the prices below are real
 };

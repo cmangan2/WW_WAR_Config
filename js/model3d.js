@@ -1,7 +1,7 @@
 // 3D preview of the build, assembled from simple shapes in three.js.
 // Units are inches. +x points out the muzzle, +y is up, +z is the rifle's right
 // side (ejection port side). The front face of the upper receiver sits at x = 0.
-import * as THREE from "three";
+import * as THREE from "../vendor/three.module.min.js";
 import { OrbitControls } from "../vendor/OrbitControls.js";
 import { RoomEnvironment } from "../vendor/RoomEnvironment.js";
 import { RoundedBoxGeometry } from "../vendor/RoundedBoxGeometry.js";
@@ -114,7 +114,7 @@ function buildRifle(b) {
   g.add(cylX(0.62, 0.62, -0.05, 0.35, MAT.steel));                           // barrel nut
 
   // charging handle
-  const chW = b.ch === "ambi" ? 2.3 : 1.6;
+  const chW = look("ch", b) === "ambi" ? 2.3 : 1.6;
   g.add(box(-7.75, -7.3, 0.55, 0.85, 0.55, MAT.black));
   g.add(box(-8.1, -7.75, 0.5, 0.9, chW, MAT.black, 0, 0.08));
 
@@ -127,7 +127,7 @@ function buildRifle(b) {
   g.add(cylZ(0.2, 0.12, MAT.steel, -5.55, -0.95, -0.47));                    // safety
   g.add(box(-5.6, -4.9, -1.05, -0.85, 0.08, MAT.steel, -0.53, 0.03));
   g.add(cylZ(0.18, 0.14, MAT.steel, -4.0, -1.55, 0.47));                     // mag release
-  const trig = b.trigger === "mil" ? MAT.steel : MAT.red;
+  const trig = look("trigger", b) === "milspec" ? MAT.steel : MAT.red;
   g.add(side([[-5.0, -1.4], [-4.82, -1.4], ["q", -4.72, -1.75, -5.02, -2.02], [-5.14, -1.96], ["q", -4.95, -1.75, -5.0, -1.4]], 0.24, trig, 0.02));
 
   // magazine
@@ -138,18 +138,18 @@ function buildRifle(b) {
   const grips = {
     a2:   [[-5.0, -1.35], [-6.45, -1.35], [-7.65, -4.55], ["q", -7.2, -4.95, -6.45, -4.8], [-5.25, -1.9]],
     ergo: [[-4.95, -1.35], [-6.5, -1.35], ["q", -7.4, -2.8, -7.8, -4.6], ["q", -7.3, -5.1, -6.4, -4.85], ["q", -5.7, -3.0, -4.95, -1.35]],
-    vert: [[-5.05, -1.35], [-6.4, -1.35], [-6.95, -4.7], ["q", -6.4, -5.0, -5.6, -4.8], [-5.15, -1.9]]
+    vertical: [[-5.05, -1.35], [-6.4, -1.35], [-6.95, -4.7], ["q", -6.4, -5.0, -5.6, -4.8], [-5.15, -1.9]]
   };
-  g.add(side(grips[b.grip], 1.05, MAT.poly, 0.14));
+  g.add(side(grips[look("grip", b)] || grips.a2, 1.05, MAT.poly, 0.14));
 
   // buffer tube + stock
-  if (b.stock === "a2s") {
+  if (look("stock", b) === "fixed") {
     g.add(side([[-7.6, 0.62], [-21.4, 0.8], [-21.4, -5.4], [-20.3, -5.4], [-8.9, -1.55], [-7.6, -1.35]], 1.45, MAT.poly, 0.18));
     g.add(box(-21.9, -21.3, -5.45, 0.85, 1.55, MAT.poly, 0, 0.12));         // butt plate
   } else {
     g.add(cylX(0.58, 0.58, -15.2, -7.5, MAT.black, -0.1));
     g.add(cylX(0.7, 0.7, -8.0, -7.55, MAT.steel, -0.1));                     // castle nut
-    if (b.stock === "sop") {
+    if (look("stock", b) === "sopmod") {
       g.add(side([[-10.6, 0.62], [-18.6, 1.15], [-18.6, -4.1], [-17.6, -4.1], [-12.8, -1.5], [-10.6, -1.0]], 1.6, MAT.poly, 0.15));
       for (const z of [-0.95, 0.95]) g.add(cylX(0.42, 0.42, -17.6, -12.4, MAT.poly, 0.25, z));
       g.add(box(-19.1, -18.5, -4.2, 1.2, 1.75, MAT.poly, 0, 0.12));
@@ -173,7 +173,7 @@ function buildRifle(b) {
       for (const z of [-apothem - 0.005, apothem + 0.005]) g.add(box(x, x + 1.27, -0.15, 0.15, 0.03, MAT.hole, z, 0.01));
       g.add(box(x, x + 1.27, -apothem - 0.02, -apothem + 0.02, 0.3, MAT.hole));
     }
-    if (b.front === "bu") {
+    if (look("front", b) === "flip") {
       const x = Lh - 1.5;
       g.add(box(x, x + 1.1, 1.25, 1.55, 0.9, MAT.poly, 0, 0.05));
       g.add(side([[x + 0.15, 1.55], [x + 0.95, 1.55], [x + 0.75, 2.45], [x + 0.35, 2.45]], 0.75, MAT.poly, 0.05));
@@ -192,7 +192,7 @@ function buildRifle(b) {
   }
 
   // muzzle device
-  const m = b.muzzle;
+  const m = look("muzzle", b);
   if (m === "a2") {
     g.add(cylX(0.42, 0.42, L, L + 2.25, MAT.steel, 0, 0, 24));
     for (const a of [30, 90, 150]) g.add(onBore(box(L + 0.9, L + 2.05, -0.03, 0.03, 0.14, MAT.hole), 0.42, a));
@@ -210,9 +210,9 @@ function buildRifle(b) {
   }
 
   // rear sight — flipped down when an optic is mounted
-  if (b.rear === "bu") {
+  if (look("rear", b) === "flip") {
     g.add(box(-7.1, -5.9, 1.25, 1.55, 0.9, MAT.poly, 0, 0.05));
-    if (b.optic === "none") {
+    if (look("optic", b) === "none") {
       g.add(side([[-6.95, 1.55], [-6.05, 1.55], [-6.3, 2.55], [-6.7, 2.55]], 0.75, MAT.poly, 0.05));
       g.add(cylX(0.07, 0.07, -6.75, -6.25, MAT.hole, 2.3));
     } else {
@@ -221,23 +221,24 @@ function buildRifle(b) {
   }
 
   // optics
-  const o = b.optic, Y = OPTIC_AXIS;
-  if (o === "rd") {
+  const o = look("optic", b), Y = OPTIC_AXIS;
+  if (o === "reddot") {
     g.add(box(-2.2, -0.6, RAIL_TOP, 2.25, 1.0, MAT.black, 0, 0.08));           // riser
     g.add(cylX(0.66, 0.66, -2.35, -0.45, MAT.poly, Y, 0, 32));
     g.add(cylZ(0.25, 0.5, MAT.poly, -1.4, Y, 0.7));                           // brightness knob
     lenses(g, -2.35, -0.45, 0.66, Y);
     g.add(new THREE.Mesh(new THREE.SphereGeometry(0.035, 12, 8), MAT.dot).translateX(-1.4).translateY(Y));
-    if (b.magnifier === "mag3") {
+    if (look("magnifier", b) === "magnifier") {
       g.add(box(-5.1, -3.1, RAIL_TOP, 2.25, 0.95, MAT.black, 0, 0.08));
       g.add(cylX(0.62, 0.62, -5.6, -2.8, MAT.poly, Y, 0, 32));
       g.add(cylX(0.74, 0.74, -5.75, -5.15, MAT.poly, Y, 0, 32));
       g.add(cylZ(0.2, 0.3, MAT.black, -4.1, Y, 0.75));                        // flip hinge
       lenses(g, -5.75, -2.8, 0.62, Y);
     }
-  } else if (o === "lp6" || o === "lp8") {
-    const t = o === "lp8" ? 0.67 : 0.59;   // 34 mm vs 30 mm tube radius in inches
-    const ocularStart = o === "lp8" ? -7.8 : -7.4;
+  } else if (o === "lpvo") {
+    const big = String(opt("optic", b).tube) === "34";
+    const t = big ? 0.67 : 0.59;   // 34 mm vs 30 mm tube radius in inches
+    const ocularStart = big ? -7.8 : -7.4;
     g.add(box(-4.9, -0.5, RAIL_TOP, 1.65, 0.95, MAT.black, 0, 0.06));           // cantilever base
     for (const [x0, x1] of [[-4.3, -3.6], [-1.5, -0.8]]) {
       g.add(box(x0, x1, 1.6, Y, 0.55, MAT.black, 0, 0.05));

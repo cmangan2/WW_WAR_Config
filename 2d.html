@@ -24,6 +24,7 @@
 
 <!-- ===== Configurator: everything inside .ww-config drops into the site page ===== -->
 <div class="ww-config">
+<div class="wwc-layout">
 <div class="wwc-head">
   <div class="intro" id="shopLine"></div>
   <a id="viewSwitch" data-page="index.html" href="index.html">Switch to 3D view</a>
@@ -49,7 +50,7 @@
 
   <section class="right" id="cats"></section>
 
-  <section class="panel quote" style="grid-column:1/-1">
+  <section class="panel quote">
     <h2>Request a quote</h2>
     <form id="quoteForm">
       <div class="row2">
@@ -63,6 +64,7 @@
         </label>
       </div>
       <label>Anything else? (timeline, parts you already own, custom Cerakote colors…)<textarea name="notes" rows="3"></textarea></label>
+      <label class="hp" aria-hidden="true">Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label>
       <div class="btns">
         <button class="primary" type="submit">Send quote request</button>
         <button class="ghost" type="button" id="copyBtn">Copy build summary</button>
@@ -73,6 +75,7 @@
   </section>
 </main>
 
+</div>
 <div class="bar-total"><div><span id="barName">Basic M4 carbine</span><strong id="barTotal"></strong></div></div>
 </div>
 <!-- ===== end configurator ===== -->
@@ -83,6 +86,7 @@
   <div><h4>Browse</h4><a href="https://www.wickedweaponryusa.com/firearms/">Firearms</a> · <a href="https://www.wickedweaponryusa.com/services/">Services</a></div>
 </div></footer>
 
+<script src="js/catalog-data.js"></script>
 <script src="js/catalog.js"></script>
 <script src="js/draw2d.js"></script>
 <script src="js/configurator.js"></script>

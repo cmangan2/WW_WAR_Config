@@ -10,6 +10,9 @@
   color:var(--ink); font:16px/1.5 var(--body-font);
 }
 .ww-config *{box-sizing:border-box}
+/* Layout follows the width the page gives the configurator, not the screen, so it fits any theme column.
+   (The container sits inside .ww-config so the fixed price bar stays fixed to the screen.) */
+.ww-config .wwc-layout{container:wwc / inline-size}
 .ww-config h2{font-family:var(--head-font);font-weight:500;color:var(--navy);text-transform:uppercase;letter-spacing:.02em;font-size:18px;margin:0 0 10px}
 
 .ww-config .wwc-head{max-width:1360px;margin:0 auto;padding:0 16px 14px;display:flex;flex-wrap:wrap;gap:6px 20px;align-items:baseline;justify-content:space-between}
@@ -18,10 +21,11 @@
 .ww-config .wwc-head a:hover{text-decoration:underline}
 
 .ww-config .wwc-main{max-width:1360px;margin:0 auto;padding:0 16px 110px;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:20px}
-@media (max-width:900px){.ww-config .wwc-main{grid-template-columns:minmax(0,1fr)}}
+@container wwc (max-width:900px){.ww-config .wwc-main{grid-template-columns:minmax(0,1fr)}}
 .ww-config .panel{background:var(--panel);border:1px solid var(--line)}
 .ww-config .left{display:flex;flex-direction:column;gap:16px}
-@media (min-width:901px){.ww-config .left{position:sticky;top:12px;align-self:start}}
+/* The preview column spans both rows so, while sticky, it never slides over the quote form. */
+@container wwc (min-width:901px){.ww-config .left{position:sticky;top:12px;align-self:start;grid-row:span 2}.ww-config .quote{grid-column:2}}
 
 .ww-config .stage{background:var(--stage);padding:8px;border-bottom:3px solid var(--red)}
 .ww-config .stage svg{display:block;width:100%;height:auto}
@@ -75,7 +79,7 @@
 .ww-config .quote input,.ww-config .quote textarea,.ww-config .quote select{font:inherit;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:0;padding:9px 10px;width:100%}
 .ww-config .quote input:focus,.ww-config .quote textarea:focus,.ww-config .quote select:focus{outline:2px solid var(--navy);outline-offset:-1px}
 .ww-config .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media (max-width:520px){.ww-config .row2{grid-template-columns:1fr}}
+@container wwc (max-width:520px){.ww-config .row2{grid-template-columns:1fr}}
 .ww-config .btns{display:flex;flex-wrap:wrap;gap:8px}
 .ww-config button.primary,.ww-config button.ghost{font:17px var(--head-font);text-transform:uppercase;border-radius:0;padding:11px 22px;cursor:pointer}
 .ww-config button.primary{background:var(--red);color:#fff;border:0}
@@ -87,3 +91,8 @@
 .ww-config .bar-total{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--navy);color:#fff;border-top:3px solid var(--red);padding:10px 16px;display:flex;justify-content:center}
 .ww-config .bar-total>div{max-width:1360px;width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;font-family:var(--head-font);text-transform:uppercase}
 .ww-config .bar-total strong{font-size:22px;font-weight:500}
+.ww-config .opt.custom .name{color:var(--navy)}
+.ww-config .opt .sub.special{color:var(--warn)}
+.ww-config .custom-text{font:inherit;width:100%;border:1px solid var(--red);border-top:0;margin-top:-8px;padding:9px 10px;resize:vertical;border-radius:0}
+.ww-config .custom-text:focus{outline:2px solid var(--navy);outline-offset:-1px}
+.ww-config .quote .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}

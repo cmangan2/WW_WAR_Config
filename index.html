@@ -4,15 +4,32 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AR Build Configurator 3D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&family=Roboto+Condensed:wght@400;700&display=swap">
+<link rel="stylesheet" href="css/site-standin.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<header>
-  <h1>Build your AR</h1>
-  <div class="shop"><span id="shopLine"></span> · <a id="viewSwitch" data-page="2d.html" href="2d.html">Switch to 2D view</a></div>
-</header>
+<!-- ===== Stand-in for the site's WordPress header and page title (not part of the configurator) ===== -->
+<header class="ws-header"><div class="inner">
+  <a class="logo" href="https://www.wickedweaponryusa.com/"><img src="https://www.wickedweaponryusa.com/wp-content/uploads/2020/02/wicked-weaponry-logo.png" alt="Wicked Weaponry"></a>
+  <nav><a href="https://www.wickedweaponryusa.com/">Home</a><a href="https://www.wickedweaponryusa.com/services/">Services</a><a href="https://www.wickedweaponryusa.com/firearms/">Firearms</a><a href="https://www.wickedweaponryusa.com/gear-and-accessories/">Gear &amp; Accessories</a><a href="https://www.wickedweaponryusa.com/">Company</a></nav>
+</div></header>
+<div class="ws-title">
+  <div class="crumbs"><a href="https://www.wickedweaponryusa.com/">Home</a><span>/</span><a href="https://www.wickedweaponryusa.com/firearms/">Firearms</a><span>/</span>AR Build Configurator</div>
+  <h1>AR Build Configurator</h1>
+  <div class="rule"><svg viewBox="0 0 16 10" aria-hidden="true"><path d="M1 1l7 7 7-7" fill="none" stroke="#222" stroke-width="2.5"/></svg></div>
+</div>
 
-<main>
+<!-- ===== Configurator: everything inside .ww-config drops into the site page ===== -->
+<div class="ww-config">
+<div class="wwc-head">
+  <div class="intro" id="shopLine"></div>
+  <a id="viewSwitch" data-page="2d.html" href="2d.html">Switch to 2D view</a>
+</div>
+
+<main class="wwc-main">
   <section class="left">
     <div class="panel">
       <div class="stage stage3d"><canvas id="rifle3d" aria-label="3D view of your build — drag to rotate, scroll or pinch to zoom"></canvas>
@@ -59,6 +76,14 @@
 </main>
 
 <div class="bar-total"><div><span id="barName">Basic M4 carbine</span><strong id="barTotal"></strong></div></div>
+</div>
+<!-- ===== end configurator ===== -->
+
+<!-- ===== Stand-in for the site's footer ===== -->
+<footer class="ws-footer"><div class="inner">
+  <div><h4>Wicked Weaponry</h4>Veteran owned · sales, service &amp; customization</div>
+  <div><h4>Browse</h4><a href="https://www.wickedweaponryusa.com/firearms/">Firearms</a> · <a href="https://www.wickedweaponryusa.com/services/">Services</a></div>
+</div></footer>
 
 <script src="js/catalog.js"></script>
 <script src="js/configurator.js"></script>

@@ -1,0 +1,25 @@
+/* Stand-in for the wickedweaponryusa.com theme header, page title and footer,
+   so the test pages look like they will on the live site. None of this is
+   needed once the configurator is placed inside a WordPress page. */
+body{margin:0;background:#fff;color:#222;font:16px/1.5 "Roboto Condensed",sans-serif}
+.ws-header{background:#020c28;border-bottom:1px solid #fff;box-shadow:0 2px 0 #b20d0f}
+.ws-header .inner{max-width:1360px;margin:0 auto;padding:14px 16px;display:flex;align-items:center;gap:24px 60px;flex-wrap:wrap}
+.ws-header .logo{display:block;height:84px}
+.ws-header .logo img{height:100%;width:auto;display:block}
+.ws-header .logo span{font:500 28px "Oswald",sans-serif;color:#fff;text-transform:uppercase}
+.ws-header nav{display:flex;flex-wrap:wrap;gap:6px 24px;flex:1;justify-content:center}
+.ws-header nav a{font:18px "Oswald",sans-serif;color:#fff;text-decoration:none;text-transform:uppercase}
+.ws-header nav a:hover{color:#ddd}
+.ws-title{max-width:1360px;margin:0 auto;padding:16px 16px 0}
+.ws-title .crumbs{font-size:14px;color:#888}
+.ws-title .crumbs a{color:#222;text-decoration:none}
+.ws-title .crumbs span{margin:0 8px;color:#ccc}
+.ws-title h1{font:500 44px/1.2 "Oswald",sans-serif;color:#b20d0f;text-transform:uppercase;text-align:center;margin:24px 0 18px}
+.ws-title .rule{display:flex;align-items:center;gap:14px;margin:0 0 28px}
+.ws-title .rule::before,.ws-title .rule::after{content:"";flex:1;border-top:1px solid #222}
+.ws-title .rule svg{width:16px;height:10px}
+.ws-footer{background:#020c28;color:#fff;padding:36px 16px 120px}
+.ws-footer .inner{max-width:1360px;margin:0 auto;display:flex;flex-wrap:wrap;gap:20px 60px;justify-content:space-between;font-size:15px}
+.ws-footer h4{font:500 18px "Oswald",sans-serif;text-transform:uppercase;margin:0 0 6px}
+.ws-footer a{color:#fff}
+@media (max-width:600px){.ws-header .logo{height:60px}.ws-title h1{font-size:34px}}

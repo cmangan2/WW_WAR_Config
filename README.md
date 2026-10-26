@@ -30,4 +30,9 @@ Other files:
 - `js/configurator.js` — options panel, price summary, shareable links and the quote form.
 - `js/draw2d.js` — the 2D drawing.
 - `js/model3d.js` — the 3D model (each part is built in `buildRifle()`, in inches) and the camera/lighting.
-- `css/style.css` — styles for both pages.
+- `css/style.css` — the configurator's styles, matched to wickedweaponryusa.com (navy `#020c28`, red `#b20d0f`, Oswald headings, Roboto Condensed text). Every rule is scoped to `.ww-config`, so it won't clash with the WordPress theme.
+- `css/site-standin.css` — a stand-in for the site's header, page title and footer, only so the test pages look like the live site.
+
+## Dropping it into the WordPress site
+
+In each page, everything between the `Configurator` and `end configurator` comments (the `.ww-config` block) is what goes into the site page, together with `css/style.css`, the scripts and `vendor/`. The stand-in header, title and footer are left behind, since the theme already provides them, along with the Oswald and Roboto Condensed fonts.

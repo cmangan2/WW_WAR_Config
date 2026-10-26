@@ -123,7 +123,7 @@ $("quoteForm").addEventListener("submit",e=>{
 $("copyBtn").onclick=()=>copy(quoteText(null),"Build summary copied.");
 $("linkBtn").onclick=()=>copy(`${location.href.split("#")[0]}#${hashOf(build)}`,"Link copied — anyone with it sees this exact build.");
 
-$("shopLine").textContent=`${SHOP.name} · custom AR builds`;
+$("shopLine").textContent="Start from a basic M4-style carbine and build it out your way — we'll quote it, build it and Cerakote it in house.";
 $("sampleNote").textContent=SHOP.samplePrices?"Sample pricing for demonstration — final price confirmed with your quote.":"Final price confirmed with your quote.";
 $("barName").textContent=BASE.name;
 function startConfigurator(draw){

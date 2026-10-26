@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AR Build Configurator 3D</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <h1>Build your AR</h1>
+  <div class="shop"><span id="shopLine"></span> · <a id="viewSwitch" data-page="index.html" href="index.html">Switch to 2D view</a></div>
+</header>
+
+<main>
+  <section class="left">
+    <div class="panel">
+      <div class="stage stage3d"><canvas id="rifle3d" aria-label="3D view of your build — drag to rotate, scroll or pinch to zoom"></canvas>
+        <div class="views"><button type="button" data-view="right">Right</button><button type="button" data-view="left">Left</button><button type="button" data-view="quarter">3/4</button><button type="button" data-view="top">Top</button></div>
+        <div class="hint">Drag to rotate · scroll to zoom</div></div>
+      <div class="stage-foot">
+        <span id="oal"></span>
+        <span class="meter">Top rail used <span class="bar"><i id="railBar"></i></span> <span id="railTxt"></span></span>
+      </div>
+    </div>
+    <div class="panel summary">
+      <h2>Your build</h2>
+      <table class="lines" id="lines"></table>
+      <div class="total"><span>Estimated total</span><span id="total"></span></div>
+      <ul class="notes" id="notes"></ul>
+      <div class="sample" id="sampleNote"></div>
+    </div>
+  </section>
+
+  <section class="right" id="cats"></section>
+
+  <section class="panel quote" style="grid-column:1/-1">
+    <h2>Request a quote</h2>
+    <form id="quoteForm">
+      <div class="row2">
+        <label>Name<input name="name" required autocomplete="name"></label>
+        <label>Phone<input name="phone" type="tel" autocomplete="tel"></label>
+      </div>
+      <div class="row2">
+        <label>Email<input name="email" type="email" autocomplete="email"></label>
+        <label>Best way to reach you
+          <select name="contact"><option>Phone call</option><option>Text</option><option>Email</option></select>
+        </label>
+      </div>
+      <label>Anything else? (timeline, parts you already own, custom Cerakote colors…)<textarea name="notes" rows="3"></textarea></label>
+      <div class="btns">
+        <button class="primary" type="submit">Send quote request</button>
+        <button class="ghost" type="button" id="copyBtn">Copy build summary</button>
+        <button class="ghost" type="button" id="linkBtn">Copy link to this build</button>
+      </div>
+      <div class="msg" id="msg"></div>
+    </form>
+  </section>
+</main>
+
+<div class="bar-total"><div><span id="barName">Basic M4 carbine</span><strong id="barTotal"></strong></div></div>
+
+<script src="js/catalog.js"></script>
+<script src="js/configurator.js"></script>
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.min.js" } }</script>
+<script type="module">
+  import { RifleView } from "./js/model3d.js";
+  const view = new RifleView(document.getElementById("rifle3d"));
+  document.querySelector(".views").addEventListener("click", e => { const v = e.target.dataset.view; if (v) view.setView(v); });
+  startConfigurator(b => view.update(b));
+</script>
+</body>
+</html>
